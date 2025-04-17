@@ -14,10 +14,11 @@ export default function Todos() {
         <div className="todoContainer">
             <div className="addtodo">
                 <AddTodo cb={(todo)=> {
+                    const length = todos.length
                     todo && 
                     setTodos((el)=>([
                         ...el  ,
-                        {id:todos.length + 1 , name:todo}
+                        {id:length !== 0 ? todos[length - 1].id + 1 : 1, name:todo}
                     ]))
                 }} />
             </div>
@@ -33,7 +34,20 @@ export default function Todos() {
                     })
                         setTodos(updatedTodo)
                     
-                }}/>)}
+                }}
+
+                deleteTodo={
+                    (id)=>{
+                        const updatedList = todos.filter(el=>el.id !== id && el)
+                        setTodos(updatedList)
+                        
+                    }
+
+                }
+                
+                
+                
+                />)}
             </div>
         </div>
     )
