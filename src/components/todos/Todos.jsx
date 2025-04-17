@@ -4,9 +4,9 @@ import TodoList from "../todoList/TodoList";
 
 export default function Todos() {
     const [todos , setTodos] = useState([
-        {id:1 , name:"todo 1"},
-        {id:2 , name:"todo 2"},
-        {id:3 , name:"todo 3"}
+        {id:1 , name:"todo 1" ,checked:false},
+        {id:2 , name:"todo 2" ,checked:false},
+        {id:3 , name:"todo 3" ,checked:false}
     ])
 
     
@@ -23,7 +23,20 @@ export default function Todos() {
                 }} />
             </div>
             <div className="todolist">
-                {todos.map((el)=> <TodoList key={el.id} id={el.id} todo={el.name} 
+                {todos.map((el)=> <TodoList
+                key={el.id} 
+                id={el.id}
+                todo={el.name}
+                isChecked={el.checked}
+                updateCheck = {(id)=>{
+                    const updatedTodo = todos.map((el)=>{           
+                        if(el.id === id) {
+                           return {...el , checked:!el.checked}
+                        }
+                        return el
+                    })
+                    setTodos(updatedTodo)
+                }}
                 edit={(id , value)=>{
                     
                     const updatedTodo = todos.map((el)=>{           
