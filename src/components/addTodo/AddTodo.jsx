@@ -1,17 +1,23 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { reduserContext } from "../../contexts/reduserContext"
 
-export default function AddTodo({cb}) {
-    const [inputValue , setInputValue] = useState('')
+export default function AddTodo() {
+    const {dispatch} = useContext(reduserContext)
+    const [inputValue, setInputValue] = useState('')
+    
+    function updateTodo(){
+        dispatch({
+            type:'on_addtodo',
+            inputValue
+        })
+        setInputValue('')
+    }
 
     return (
         <>
-            <input type="text" onChange={(e)=>setInputValue(e.target.value)} value={inputValue} placeholder="enter todo name..."></input>
-            <button onClick={()=>{
-                if (inputValue.length !== 0) {
-                    cb(inputValue)
-                    setInputValue('')
-                } 
-            }}>Save</button>
+            <input type="text" onChange={(e) => setInputValue(e.target.value)} value={inputValue} placeholder="enter todo name..."></input>
+            <button
+                onClick={updateTodo}>Save</button>
         </>
     )
 }

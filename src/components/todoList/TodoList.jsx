@@ -1,25 +1,22 @@
-import { useState } from "react"
+import {  useState } from "react"
 import './todolist.css'
 
-export default function TodoList({id , todo , edit , deleteTodo ,isChecked ,updateCheck}) {
+export default function TodoList({ todo ,updateCheck , edit , deleteTodo}) {
     const [input , setInput] = useState('')
-    const [hiden , setHiden] =useState(true)
+    const [hiden , setHiden] =useState(false)
 
     
     return (
-        <div className="todo" id={id}>
-            <input type="checkbox" name="" hidden={!hiden} checked={isChecked} onChange={()=> updateCheck(id)}/>
-            <h1 hidden={!hiden}>{todo}</h1>
-            <input type="text" hidden={hiden} onChange={(e)=> setInput(e.target.value)} value={input} placeholder={input}></input>
+        <div className="todo" id={todo.id}>
+           <input type="checkbox" name=""  id="" checked={todo.checked} onChange={()=>updateCheck(todo.id)}/>
+           {hiden ? <input type='text' onChange={(e)=>setInput(e.target.value)} value={input}/> : <h1>{todo.name}</h1>}
             <button onClick={()=>{
-                
                 setHiden(!hiden)
-                if (input.length !== 0 ) {
-                    edit(id ,input , undefined)
-                    setInput('')  
-                } 
+                if (input.length !== 0) {
+                    edit(todo.id ,input)
+                }
             }}>Edit</button>
-            <button onClick={()=> deleteTodo(id)}>Delete</button>
+            <button onClick={()=> deleteTodo(todo.id)}>Delete</button>
         </div>
     )
 }
