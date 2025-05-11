@@ -1,27 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { useReducer, useState } from "react";
-import { todoContext } from "./contexts/todoContext";
-import { reduserContext } from "./contexts/reduserContext";
 import { Todos } from "./components/todos/Todos";
-import todoReduser from "./redusers/todoReduser";
-
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { add_todo, check_todo, delete_todo, edit_todo } from "./actions/todoAction";
 
 export default function App() {
+      const dispatch = useDispatch()  
+      const action = bindActionCreators({add_todo,delete_todo,check_todo,edit_todo},dispatch)
 
-const [todos , dispatch] = useReducer(todoReduser , intialSatae)
+      return(
 
-
-    return(
-        <todoContext.Provider value={{todos}} >
-          <reduserContext.Provider value={{dispatch}}>
-            <Todos />
-            </reduserContext.Provider>
-      </todoContext.Provider>
+        <Todos addTodo={action.add_todo} deleteTodo={action.delete_todo} editTodo={action.edit_todo} checkTodo={action.check_todo}/>
     )
 }
 
-const intialSatae = [
-  {id:1 , name:"todo 1" ,checked:false},
-  {id:2 , name:"todo 2" ,checked:false},
-  {id:3 , name:"todo 3" ,checked:false}
-]

@@ -1,18 +1,30 @@
-export default function todoReduser(todos , action){
+import { ADD_TODO, CHECK_TODO, DELETE_TODO, EDIT_TODO } from "../rowStrings/todoStr";
+
+const intialSatae = [
+  {id:1 , name:"todo 1" ,checked:false},
+  {id:2 , name:"todo 2" ,checked:false},
+  {id:3 , name:"todo 3" ,checked:false}
+]
+
+/* eslint-disable no-unreachable */
+export default function todoReduser(todos = intialSatae , action){
 switch (action.type) {
-    case "on_addtodo" :{
+    case ADD_TODO :{
+
                 const length = todos.length
                 const inputValue = action.inputValue
-                            if (inputValue.length !== 0) {
+                            
                                return[
                                     ...todos,
-                                    { id: length !== 0 ? state[length - 1].id + 1 : 1, name: inputValue }
-                                ]
-                            }
-                    }
+                                    { id: length !== 0 ? todos[length - 1].id + 1 : 1, name: inputValue }
+                                ]  
+                                 
+            }
         break;
-    case 'on_Cheacked':{
+    case CHECK_TODO:{
+
         const id = action.id
+        
         const updatedTodo = todos.map((el)=>{           
             if(el.id === id) {
                return {...el , checked:!el.checked}
@@ -22,7 +34,7 @@ switch (action.type) {
         return updatedTodo
     }
         break;
-    case 'on_edit':{
+    case EDIT_TODO:{
         const id = action.id
         const value = action.value
         const updatedTodo = todos.map((el)=>{           
@@ -34,7 +46,7 @@ switch (action.type) {
         return updatedTodo
     }
         break;
-    case 'on_delete':{
+    case DELETE_TODO:{
         const id = action.id
         return todos.filter(el=>el.id !== id && el)
     }
@@ -43,5 +55,5 @@ switch (action.type) {
         return todos
     }
         break;
-}
+}   
 }

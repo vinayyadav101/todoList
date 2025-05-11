@@ -1,50 +1,33 @@
-import { useContext } from "react"
+import { useSelector } from "react-redux"
 import AddTodo from "../addTodo/AddTodo"
 import TodoList from '../todoList/TodoList'
-import { todoContext } from "../../contexts/todoContext"
-import { reduserContext } from "../../contexts/reduserContext"
 
-export function Todos() {
-    const {todos} = useContext(todoContext)
-    const {dispatch} = useContext(reduserContext)
 
-    function updateCheck(id){
-        dispatch({
-            type:'on_Cheacked',
-            id
-        })
-    }
-    function edit(id , value){
-        dispatch({
-            type:'on_edit',
-            id,
-            value
-        })
-    }
-    function deleteTodo(id){
-        dispatch({
-            type:"on_delete",
-            id
-        })
-    }
+
+export function Todos({addTodo,deleteTodo,editTodo,checkTodo}) {
+
+
+    // useselector to use access of entiyer state of store amd also avilable for rerandering.
+        const todos = useSelector((state)=>state.todo)
+
 
     return(
         <div className="todoContainer">
             <div className="addtodo">
-                <AddTodo />
+                <AddTodo add_todo ={addTodo}/>
             </div>
             <div className="todolist">
                 {
                     todos.map((el)=> <TodoList
                     key={el.id} 
                     todo={el}
-                    updateCheck = {updateCheck}
-                    edit={edit}
+                    updateCheck = {checkTodo}
+                    edit={editTodo}
                     deleteTodo={deleteTodo}
                     />)
                 }
             </div>
         </div>
- 
+    
     )
 }

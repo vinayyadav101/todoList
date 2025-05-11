@@ -1,15 +1,11 @@
-import { useContext, useState } from "react"
-import { reduserContext } from "../../contexts/reduserContext"
+import { useState } from "react"
 
-export default function AddTodo() {
-    const {dispatch} = useContext(reduserContext)
-    const [inputValue, setInputValue] = useState('')
+export default function AddTodo({add_todo}) {
+    
+        const [inputValue, setInputValue] = useState('')
     
     function updateTodo(){
-        dispatch({
-            type:'on_addtodo',
-            inputValue
-        })
+        add_todo(inputValue)
         setInputValue('')
     }
 
