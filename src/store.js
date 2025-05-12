@@ -1,12 +1,19 @@
-import { combineReducers, createStore } from "redux";
-import todoReduser from "./redusers/todoReduser";
+// import { combineReducers } from "redux";
+// import todoReduser from "./redusers/todoReduser";
+import { configureStore } from "@reduxjs/toolkit";
+import reducer from "./slices/todoSlice";
 
 
 // combinreducers to work for automatic rerander facility only store use not automatic rerander its manul . so use combinereducers
-const reducers = combineReducers({todo:todoReduser})
+// const reducers = combineReducers({todo:todoReduser})
 
-export  const store = createStore(reducers)
+// export  const store = createStore(reducers)
 
+export const store = configureStore({
+    reducer:{
+        todo:reducer
+    }
+})
 
 // (if you have use without combineReduser using useselectore to above like error ahow in browser) 
 

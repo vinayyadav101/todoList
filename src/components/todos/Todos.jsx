@@ -8,7 +8,8 @@ export function Todos({addTodo,deleteTodo,editTodo,checkTodo}) {
 
 
     // useselector to use access of entiyer state of store amd also avilable for rerandering.
-        const todos = useSelector((state)=>state.todo)
+        const todos = useSelector((state)=>state.todo.todoList)
+console.log(todos);
 
 
     return(

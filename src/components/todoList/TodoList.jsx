@@ -15,7 +15,7 @@ export default function TodoList({ todo ,updateCheck , edit , deleteTodo}) {
             <button onClick={()=>{
                 setHiden(!hiden)
                 if (input.length !== 0) {
-                    edit(todo.id ,input)
+                edit({id:todo.id ,input})
                 }
             }}>Edit</button>
             <button onClick={()=> deleteTodo(todo.id)}>Delete</button>
